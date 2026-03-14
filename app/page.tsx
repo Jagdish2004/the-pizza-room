@@ -1,65 +1,122 @@
-import Image from "next/image";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { CategoryTabs } from "@/components/menu/CategoryTabs";
+import { MenuSection } from "@/components/menu/MenuSection";
+import { HeroCTA } from "@/components/HeroCTA";
+import { MENU_ITEMS, CATEGORIES } from "@/data/menu";
+import { Category } from "@/types";
+import { MapPin, Star } from "lucide-react";
+
+function getItems(cat: Category) {
+  return MENU_ITEMS.filter((i) => i.category === cat);
+}
+
+const SECTION_META: Record<Category, { subtitle?: string }> = {
+  "pizza-classic": {},
+  "pizza-premium": { subtitle: "Made with premium topping sauce" },
+  "pasta": { subtitle: "We don't use refined wheat flour on any pasta" },
+  "garlic-bread": {},
+  "coffee": {},
+  "shakes": {},
+  "drinks": {},
+  "desserts": {},
+};
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      <Header />
+
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section
+        id="hero"
+        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16"
+        style={{
+          background:
+            "radial-gradient(ellipse 90% 70% at 50% 30%, rgba(200,150,30,0.12) 0%, transparent 65%), " +
+            "linear-gradient(175deg, #FFFDF5 0%, #FBF4E3 45%, #F5EDD4 100%)",
+        }}
+      >
+        {/* Subtle decorative texture */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Radial glow top-left */}
+          <div
+            className="absolute -top-40 -left-40 w-96 h-96 rounded-full opacity-30"
+            style={{ background: "radial-gradient(circle, rgba(200,150,30,0.25) 0%, transparent 70%)" }}
+          />
+          {/* Radial glow bottom-right */}
+          <div
+            className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full opacity-20"
+            style={{ background: "radial-gradient(circle, rgba(200,150,30,0.3) 0%, transparent 70%)" }}
+          />
+          {/* Subtle dot grid */}
+          <div
+            className="absolute inset-0 opacity-[0.045]"
+            style={{
+              backgroundImage: "radial-gradient(circle, #9A7215 1px, transparent 1px)",
+              backgroundSize: "28px 28px",
+            }}
+          />
+        </div>
+
+        {/* Hero content */}
+        <div className="relative z-10 text-center px-4 max-w-3xl mx-auto animate-fade-in-up">
+          {/* Rating pill */}
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full
+            bg-white/70 border border-[rgba(200,150,30,0.35)] shadow-sm mb-6 backdrop-blur-sm">
+            <Star size={13} className="text-[#C8961E] fill-[#C8961E]" />
+            <span className="text-xs text-[#9A7215] font-semibold">4.2 · 1,358 reviews on Google</span>
+          </div>
+
+          <h1
+            className="text-5xl sm:text-6xl md:text-7xl font-black mb-4 leading-none text-[#6B4A0A]"
+            style={{ fontFamily: "Playfair Display, serif", letterSpacing: "-0.01em" }}
+          >
+            THE{" "}
+            <span className="text-gold-gradient">PIZZA</span>
+            {" "}ROOM
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-base sm:text-lg text-[#8A7A60] mb-8 max-w-md mx-auto leading-relaxed">
+            Authentic pizza, pasta &amp; more —{" "}
+            <span className="text-[#C8961E] font-semibold">crafted fresh</span> in Pimpri, Pune.
           </p>
+
+          {/* CTA */}
+          <HeroCTA />
+
+          {/* Address chip */}
+          <div className="mt-8 flex items-center justify-center gap-1.5 text-xs text-[#8A7A60]">
+            <MapPin size={12} className="text-[#C8961E]" />
+            Shastrinagar, Pimpri, Pune · Open 11 AM daily
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Scroll cue */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#C8961E] opacity-50">
+          <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-6 bg-gradient-to-b from-[#C8961E] to-transparent" />
         </div>
+      </section>
+
+      {/* ── Category tabs ─────────────────────────────────────────────────── */}
+      <CategoryTabs />
+
+      {/* ── Menu sections ─────────────────────────────────────────────────── */}
+      <main className="max-w-6xl mx-auto px-4 py-12 space-y-16">
+        {CATEGORIES.map((cat) => (
+          <MenuSection
+            key={cat.id}
+            id={cat.anchor}
+            title={cat.label}
+            emoji={cat.emoji}
+            items={getItems(cat.id)}
+            subtitle={SECTION_META[cat.id].subtitle}
+          />
+        ))}
       </main>
-    </div>
+
+      <Footer />
+    </>
   );
 }
