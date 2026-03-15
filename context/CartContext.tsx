@@ -70,7 +70,7 @@ interface CartContextValue {
     items: CartItem[];
     totalItems: number;
     totalPrice: number;
-    addItem: (menuItem: MenuItem, selectedSize?: "L" | "XL") => void;
+    addItem: (menuItem: MenuItem, selectedSize?: "S" | "M" | "L" | "XL") => void;
     removeItem: (id: string, size?: string) => void;
     updateQty: (id: string, qty: number, size?: string) => void;
     clearCart: () => void;
@@ -82,7 +82,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(cartReducer, { items: [] });
 
     const addItem = useCallback(
-        (menuItem: MenuItem, selectedSize?: "L" | "XL") => {
+        (menuItem: MenuItem, selectedSize?: "S" | "M" | "L" | "XL") => {
             dispatch({
                 type: "ADD",
                 item: { menuItem, qty: 1, selectedSize },

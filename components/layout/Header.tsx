@@ -42,18 +42,6 @@ export function Header() {
                         </div>
                     </a>
 
-                    {/* Desktop nav */}
-                    <nav className="hidden md:flex items-center gap-0.5">
-                        {CATEGORIES.map((cat) => (
-                            <button
-                                key={cat.id}
-                                onClick={() => scrollTo(cat.anchor)}
-                                className="px-3 py-1.5 text-xs text-[#8A7A60] hover:text-[#C8961E] transition-colors rounded-lg hover:bg-[rgba(200,150,30,0.08)]"
-                            >
-                                {cat.label}
-                            </button>
-                        ))}
-                    </nav>
 
                     {/* Right */}
                     <div className="flex items-center gap-2">
