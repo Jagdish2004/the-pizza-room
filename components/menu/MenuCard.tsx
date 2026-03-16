@@ -6,15 +6,116 @@ import { MenuItem } from "@/types";
 import { useCart } from "@/context/CartContext";
 import { Plus, Check } from "lucide-react";
 
-// ── Category → image path ─────────────────────────────────────────────────
-const CATEGORY_IMAGES: Record<string, string> = {
+// ── Per-item image map (keyed by item.id) ─────────────────────────────────
+// Items not listed here fall back to CATEGORY_FALLBACK below.
+const ITEM_IMAGES: Record<string, string> = {
+    // ── Classic Pizzas ──────────────────────────────────────────────────────
+    "cl-margherita": "/images/margrita_pizza.jpeg",
+    "cl-golden-paneer": "/images/golden_paneer_pizza.jpeg",
+    // cl-mexican-mafia           → no specific image (falls back to category)
+    "cl-family-jewels": "/images/family_jewels_pizza.jpeg",
+    "cl-veg-deluxe": "/images/veg_delux_pizza.jpeg",
+    "cl-ratatouille": "/images/ratatouille_pizza.jpeg",
+    "cl-al-fungi": "/images/pizza_al_fungi.jpeg",
+    // cl-double-cheese-margherita → no specific image (falls back to category)
+
+    // ── Tandoori Pizzas ─────────────────────────────────────────────────────
+    "td-mushroom": "/images/mushroom_tandoori_pizza.jpeg",
+    "td-paneer": "/images/paneer_tandoori_pizza.jpeg",
+    "td-paneer-mushroom": "/images/paneer_mashroom_tandoori_pizza.jpeg",
+    // td-mix                    → no specific image (falls back to category)
+
+    // ── Premium Pizzas ──────────────────────────────────────────────────────
+    "pp-italian": "/images/italian_pizza.jpeg",
+    "pp-chilly-garlic": "/images/chilli_garlic_pizza.jpeg",
+    // pp-peppy-paneer            → no specific image (falls back to category)
+    "pp-mangolian-paneer": "/images/mangolian_paneer_pizza.jpeg",
+    "pp-spicy-chilli-paneer": "/images/spicy_chilli_paneer_pizza.jpeg",
+    "pp-4-cheese": "/images/four_cheese_pizza.jpeg",
+    // pp-az-18inch               → no specific image (falls back to category)
+    // pp-room-special-18         → no specific image (falls back to category)
+
+    // ── Classic Pizza Range ─────────────────────────────────────────────────
+    "cr-classic": "/images/classic_pizza.jpeg",
+    // cr-chocolate               → no specific image (falls back to category)
+    // cr-paneer                  → no specific image (falls back to category)
+    // cr-paneer-mushroom         → no specific image (falls back to category)
+
+    // ── Pizza Mania – Square Pizzas (all share the same photo) ──────────────
+    "pm-veg-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
+    "pm-mushroom-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
+    "pm-paneer-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
+    "pm-paneer-mushroom-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
+
+    // ── Panini Sandwiches ────────────────────────────────────────────────────
+    // pn-chocolate               → no specific image (falls back to category)
+    // pn-masala-cheese           → no specific image (falls back to category)
+    "pn-cheese-chilli": "/images/maxican_pinani.jpeg",
+    "pn-mexican": "/images/maxican_pinani.jpeg",
+    // pn-garlic-cheese           → no specific image (falls back to category)
+    "pn-creamy-cheese": "/images/creamy_cheese_pinani.jpeg",
+    "pn-mangolian-cheese": "/images/mangolian_cheese_pinani.jpeg",
+
+    // ── Penne Pasta ─────────────────────────────────────────────────────────
+    "pa-red-sauce": "/images/red_souce_pasta.jpeg",
+    "pa-mangolian-red": "/images/mangolian_red_sauce_pasta.jpeg",
+    // pa-spicy-masala            → no specific image (falls back to category)
+    "pa-baked-cheese": "/images/baked_cheese_pasta.jpeg",
+    // pa-italian                 → no specific image (falls back to category)
+    "pa-creamy-cheese": "/images/creamy_cheese_pasta.jpeg",
+
+    // ── Grills & Sandwiches ──────────────────────────────────────────────────
+    "gr-american-corn": "/images/american_corn_grilled.jpeg",
+    // gr-masala-cheese           → no specific image (falls back to category)
+    "gr-veg-cheese": "/images/veg_cheese_grilled_sandwitch.jpeg",
+    // gr-cheese-chilli           → no specific image (falls back to category)
+    // Melting Cheese Grill & Veg Cheese Paneer Grill share the same image
+    "gr-melting-cheese": "/images/veg_cheese_grilled_sandwitch.jpeg",
+    "gr-pahadi-cheese": "/images/pahadi_cheese_grilled.jpeg",
+    // gr-pahadi-paneer           → no specific image (falls back to category)
+    "gr-schezwan-cheese": "/images/schezwan_cheese-grilled.jpeg",
+    "gr-veg-cheese-paneer": "/images/veg_cheese_paneer_grilled.jpeg",
+    // gr-cheese-chilli-paneer    → no specific image (falls back to category)
+    // gr-masala-paneer           → no specific image (falls back to category)
+    // gr-room-special            → no specific image (falls back to category)
+
+    // ── Burgers ──────────────────────────────────────────────────────────────
+    "bu-veg-delite": "/images/veg_delight_buger.jpeg",
+    // bu-spicy                   → no specific image (falls back to category)
+    "bu-double-cheese": "/images/double_cheese_burger.jpeg",
+    // bu-paneer-cheese           → no specific image (falls back to category)
+    // bu-coated-cheese           → no specific image (falls back to category)
+    // bu-melting-cheese          → no specific image (falls back to category)
+    // bu-mexican-cheese          → no specific image (falls back to category)
+    // bu-cheese-burst            → no specific image (falls back to category)
+
+    // ── Fries ────────────────────────────────────────────────────────────────
+    "fr-plain": "/images/plain_fries.jpeg",
+    "fr-peri-peri": "/images/peri_peri_fries.jpeg",
+    // fr-cheese-peri-peri        → no specific image (falls back to category)
+    // fr-melting-cheese-peri-peri → no specific image (falls back to category)
+    // fr-mayo-peri-peri          → no specific image (falls back to category)
+
+    // ── Garlic Bread ─────────────────────────────────────────────────────────
+    "gb-plain": "/images/garlic_bread.jpeg",
+    "gb-cheese": "/images/cheese_garlic_bread.jpeg",
+    // gb-paneer-cheese           → no specific image (falls back to category)
+    // gb-mayo-cheese             → no specific image (falls back to category)
+    // gb-cheese-corn             → no specific image (falls back to category)
+    "gb-stuf": "/images/stuffed_garlic_bread.jpeg",
+
+    // Coffee / Shakes / Drinks / Desserts – all use category fallback images
+};
+
+// ── Category fallback images ───────────────────────────────────────────────
+const CATEGORY_FALLBACK: Record<string, string> = {
     "pizza-classic": "/images/pizza-classic.jpg",
     "pizza-tandoori": "/images/pizza-classic.jpg",
     "pizza-masala": "/images/pizza-classic.jpg",
     "pizza-premium": "/images/pizza-premium.jpg",
     "pizza-classic-range": "/images/pizza-premium.jpg",
     "pizza-mania": "/images/pizza-classic.jpg",
-    "panini": "/images/garlic-bread.jpg",
+    "panini": "/images/pasta.jpg",
     "pasta": "/images/pasta.jpg",
     "grills": "/images/garlic-bread.jpg",
     "burgers": "/images/garlic-bread.jpg",
@@ -60,7 +161,10 @@ export function MenuCard({ item }: MenuCardProps) {
             ? (item.sizePrices as Record<string, number>)[selectedSize]
             : item.price;
 
-    const imgSrc = CATEGORY_IMAGES[item.category] ?? "/images/pizza-classic.jpg";
+    const imgSrc =
+        ITEM_IMAGES[item.id] ??
+        CATEGORY_FALLBACK[item.category] ??
+        "/images/pizza-classic.jpg";
 
     const handleAdd = () => {
         addItem(item, selectedSize as "M" | "L" | "XL" | undefined);

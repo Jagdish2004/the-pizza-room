@@ -17,17 +17,17 @@ export function Footer() {
                         Authentic flavours, crafted with love. Dine-in, takeaway &amp; delivery available.
                     </p>
                     <div className="flex items-center gap-3 mt-4">
-                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.instagram.com/thepizzaroompimpri" target="_blank" rel="noopener noreferrer"
                             className="text-[#8A7A60] hover:text-[#C8961E] transition-colors">
                             <Instagram size={17} />
                         </a>
-                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
-                            className="text-[#8A7A60] hover:text-[#C8961E] transition-colors">
-                            <Facebook size={17} />
-                        </a>
-                        <a href="https://www.pizzaroom.in" target="_blank" rel="noopener noreferrer"
-                            className="text-[#8A7A60] hover:text-[#C8961E] transition-colors">
-                            <Globe size={17} />
+                        <a
+                            href="https://www.google.com/maps/place/THE+PIZZA+ROOM/@18.6168133,73.7994271,17z/data=!4m16!1m8!3m7!1s0x3bc2b9c75332ee37:0x15fddf2cfac77bf0!2sTHE+PIZZA+ROOM!8m2!3d18.6168133!4d73.802002!10e9!16s%2Fg%2F11f8h_5gb7!3m6!1s0x3bc2b9c75332ee37:0x15fddf2cfac77bf0!8m2!3d18.6168133!4d73.802002!10e9!16s%2Fg%2F11f8h_5gb7?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#8A7A60] hover:text-[#C8961E] transition-colors"
+                        >
+                            <MapPin size={17} />
                         </a>
                     </div>
                 </div>
@@ -75,8 +75,7 @@ export function Footer() {
 
             <div className="border-t border-[rgba(200,150,30,0.15)] px-4 py-4 text-center">
                 <p className="text-xs text-[#8A7A60]">
-                    © 2024 The Pizza Room, Pimpri, Pune. All rights reserved. |{" "}
-                    <a href="https://www.pizzaroom.in" className="hover:text-[#C8961E] transition-colors">www.pizzaroom.in</a>
+                    © 2026 The Pizza Room, Pimpri, Pune. All rights reserved.
                 </p>
             </div>
         </footer>
