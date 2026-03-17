@@ -203,7 +203,7 @@ export function MenuCard({ item }: MenuCardProps) {
                     {item.name}
                 </h3>
                 {item.description && (
-                    <p className="text-xs text-[#8A7A60] leading-relaxed line-clamp-2">
+                    <p className="text-xs text-[#8A7A60] leading-relaxed line-clamp-3">
                         {item.description}
                     </p>
                 )}
