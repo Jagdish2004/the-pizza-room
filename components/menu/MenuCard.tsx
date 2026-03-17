@@ -155,6 +155,7 @@ export function MenuCard({ item }: MenuCardProps) {
         hasSizes ? defaultSize : undefined
     );
     const [added, setAdded] = useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const displayPrice =
         hasSizes && selectedSize && item.sizePrices
@@ -203,9 +204,23 @@ export function MenuCard({ item }: MenuCardProps) {
                     {item.name}
                 </h3>
                 {item.description && (
-                    <p className="text-xs text-[#8A7A60] leading-relaxed line-clamp-3">
-                        {item.description}
-                    </p>
+                    <div>
+                        <p
+                            className={`text-xs text-[#8A7A60] leading-relaxed ${expanded ? "" : "line-clamp-2"
+                                }`}
+                        >
+                            {item.description}
+                        </p>
+
+                        {item.description.length > 80 && (
+                            <button
+                                onClick={() => setExpanded(!expanded)}
+                                className="text-[11px] text-[#C8961E] font-medium mt-0.5"
+                            >
+                                {expanded ? "Show Less" : "Show More"}
+                            </button>
+                        )}
+                    </div>
                 )}
 
                 {/* Size selector */}
