@@ -229,9 +229,14 @@ export function MenuCard({ item }: MenuCardProps) {
 
                 {/* Price + Add */}
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-[rgba(0,0,0,0.05)]">
-                    <span className="text-base font-bold text-[#C8961E]">
-                        ₹{displayPrice ?? "—"}
-                    </span>
+                    <div className="flex items-baseline gap-1">
+                        <span className="text-base font-bold text-[#C8961E]">
+                            ₹{displayPrice ?? "—"}
+                        </span>
+                        <span className="text-[10px] text-[#8A7A60]">
+                            +5% GST
+                        </span>
+                    </div>
                     <button
                         id={`add-${item.id}${selectedSize ? `-${selectedSize}` : ""}`}
                         onClick={handleAdd}

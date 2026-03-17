@@ -11,7 +11,7 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
-    const { items, totalItems, totalPrice, clearCart } = useCart();
+    const { items, totalItems, subtotal, gst, packagingCharges, totalPrice, clearCart } = useCart();
     const drawerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -26,7 +26,8 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
     }, [open]);
 
     const buildWhatsAppMessage = () => {
-        let msg = "Hello! I'd like to place an order:\n\n";
+        let msg = "*🍕 New Order - The Pizza Room*\n\n";
+        msg += "--- *Order Details* ---\n";
         items.forEach((item) => {
             const size = item.selectedSize ? ` (${item.selectedSize})` : "";
             const price =
@@ -35,7 +36,12 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                     : item.menuItem.price ?? 0;
             msg += `• ${item.menuItem.name}${size} x${item.qty} — ₹${price * item.qty}\n`;
         });
-        msg += `\n*Total: ₹${totalPrice}*\nPlease confirm my order. Thank you!`;
+        msg += "\n--- *Bill Summary* ---\n";
+        msg += `Subtotal: ₹${subtotal}\n`;
+        msg += `GST (5%): ₹${gst}\n`;
+        msg += `Packaging Charges: ₹${packagingCharges}\n`;
+        msg += `*Grand Total: ₹${totalPrice}*\n\n`;
+        msg += "Please confirm my order. Thank you!";
         return encodeURIComponent(msg);
     };
 
@@ -99,9 +105,23 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                 {/* Footer */}
                 {items.length > 0 && (
                     <div className="px-5 py-4 border-t border-[rgba(200,150,30,0.15)] bg-white space-y-3">
-                        <div className="flex justify-between items-center text-sm">
-                            <span className="text-[#8A7A60]">Subtotal</span>
-                            <span className="text-[#1A1209] font-bold text-base">₹{totalPrice}</span>
+                        <div className="space-y-1.5 border-b border-[rgba(0,0,0,0.05)] pb-3">
+                            <div className="flex justify-between items-center text-sm">
+                                <span className="text-[#8A7A60]">Subtotal</span>
+                                <span className="text-[#1A1209] font-medium">₹{subtotal}</span>
+                            </div>
+                            <div className="flex justify-between items-center text-xs">
+                                <span className="text-[#8A7A60]">GST (5%)</span>
+                                <span className="text-[#1A1209]">₹{gst}</span>
+                            </div>
+                            <div className="flex justify-between items-center text-xs">
+                                <span className="text-[#8A7A60]">Packaging Charges</span>
+                                <span className="text-[#1A1209]">₹{packagingCharges}</span>
+                            </div>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <span className="text-[#1A1209] font-semibold">Total Amount</span>
+                            <span className="text-[#C8961E] font-bold text-lg">₹{totalPrice}</span>
                         </div>
                         <a
                             href={`https://wa.me/919604940540?text=${buildWhatsAppMessage()}`}

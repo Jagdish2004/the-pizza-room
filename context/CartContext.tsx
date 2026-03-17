@@ -69,6 +69,9 @@ function cartKey(id: string, size?: string) {
 interface CartContextValue {
     items: CartItem[];
     totalItems: number;
+    subtotal: number;
+    gst: number;
+    packagingCharges: number;
     totalPrice: number;
     addItem: (menuItem: MenuItem, selectedSize?: "S" | "M" | "L" | "XL") => void;
     removeItem: (id: string, size?: string) => void;
@@ -104,7 +107,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const totalItems = state.items.reduce((sum, i) => sum + i.qty, 0);
-    const totalPrice = state.items.reduce((sum, i) => {
+    const subtotal = state.items.reduce((sum, i) => {
         const price =
             i.selectedSize && i.menuItem.sizePrices
                 ? (i.menuItem.sizePrices[i.selectedSize] ?? 0)
@@ -112,9 +115,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return sum + price * i.qty;
     }, 0);
 
+    const gst = Math.round(subtotal * 0.05 * 100) / 100;
+    const packagingCharges = subtotal > 0 ? 5 : 0;
+    const totalPrice = Math.round((subtotal + gst + packagingCharges) * 100) / 100;
+
     return (
         <CartContext.Provider
-            value={{ items: state.items, totalItems, totalPrice, addItem, removeItem, updateQty, clearCart }}
+            value={{
+                items: state.items,
+                totalItems,
+                subtotal,
+                gst,
+                packagingCharges,
+                totalPrice,
+                addItem,
+                removeItem,
+                updateQty,
+                clearCart
+            }}
         >
             {children}
         </CartContext.Provider>
