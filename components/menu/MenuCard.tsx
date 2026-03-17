@@ -42,10 +42,10 @@ const ITEM_IMAGES: Record<string, string> = {
     // cr-paneer-mushroom         → no specific image (falls back to category)
 
     // ── Pizza Mania – Square Pizzas (all share the same photo) ──────────────
-    "pm-veg-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
-    "pm-mushroom-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
-    "pm-paneer-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
-    "pm-paneer-mushroom-square": "/images/veg-paneer-paneer_mashroom-mashroom_sqare_pizza.jpeg",
+    // pm-veg-square            → no specific image (falls back to category)    
+    // pm-mushroom-square         → no specific image (falls back to category)
+    "pm-paneer-square": "/images/paneer_sqare_pizza.jpeg",
+    // pm-paneer-mushroom-square → no specific image (falls back to category)
 
     // ── Panini Sandwiches ────────────────────────────────────────────────────
     // pn-chocolate               → no specific image (falls back to category)
