@@ -212,7 +212,7 @@ export function MenuCard({ item }: MenuCardProps) {
                             {item.description}
                         </p>
 
-                        {item.description.length > 80 && (
+                        {item.description.length > 45 && (
                             <button
                                 onClick={() => setExpanded(!expanded)}
                                 className="text-[11px] text-[#C8961E] font-medium mt-0.5"
