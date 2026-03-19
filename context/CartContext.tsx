@@ -72,6 +72,7 @@ interface CartContextValue {
     subtotal: number;
     gst: number;
     packagingCharges: number;
+    deliveryCharge: number;
     totalPrice: number;
     addItem: (menuItem: MenuItem, selectedSize?: "S" | "M" | "L" | "XL") => void;
     removeItem: (id: string, size?: string) => void;
@@ -117,7 +118,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     const gst = Math.round(subtotal * 0.05 * 100) / 100;
     const packagingCharges = subtotal > 0 ? 5 : 0;
-    const totalPrice = Math.round((subtotal + gst + packagingCharges) * 100) / 100;
+    const amountBeforeDelivery = Math.round((subtotal + gst + packagingCharges) * 100) / 100;
+    const deliveryCharge = (subtotal > 0 && amountBeforeDelivery <= 280) ? 20 : 0;
+    const totalPrice = Math.round((amountBeforeDelivery + deliveryCharge) * 100) / 100;
 
     return (
         <CartContext.Provider
@@ -127,6 +130,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                 subtotal,
                 gst,
                 packagingCharges,
+                deliveryCharge,
                 totalPrice,
                 addItem,
                 removeItem,

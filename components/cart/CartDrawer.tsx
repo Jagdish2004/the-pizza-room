@@ -11,7 +11,7 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ open, onClose }: CartDrawerProps) {
-    const { items, totalItems, subtotal, gst, packagingCharges, totalPrice, clearCart } = useCart();
+    const { items, totalItems, subtotal, gst, packagingCharges, deliveryCharge, totalPrice, clearCart } = useCart();
     const drawerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -40,6 +40,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         msg += `Subtotal: ₹${subtotal}\n`;
         msg += `GST (5%): ₹${gst}\n`;
         msg += `Packaging Charges: ₹${packagingCharges}\n`;
+        msg += `Delivery Charges: ${deliveryCharge > 0 ? `₹${deliveryCharge}` : "FREE"}\n`;
         msg += `*Grand Total: ₹${totalPrice}*\n\n`;
         msg += "Please confirm my order. Thank you!";
         return encodeURIComponent(msg);
@@ -117,6 +118,12 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                             <div className="flex justify-between items-center text-xs">
                                 <span className="text-[#8A7A60]">Packaging Charges</span>
                                 <span className="text-[#1A1209]">₹{packagingCharges}</span>
+                            </div>
+                            <div className="flex justify-between items-center text-xs">
+                                <span className="text-[#8A7A60]">Delivery Charges</span>
+                                <span className={deliveryCharge > 0 ? "text-[#1A1209]" : "text-green-600 font-medium"}>
+                                    {deliveryCharge > 0 ? `₹${deliveryCharge}` : "FREE"}
+                                </span>
                             </div>
                         </div>
                         <div className="flex justify-between items-center">

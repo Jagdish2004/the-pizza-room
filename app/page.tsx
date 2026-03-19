@@ -5,7 +5,7 @@ import { MenuSection } from "@/components/menu/MenuSection";
 import { HeroCTA } from "@/components/HeroCTA";
 import { MENU_ITEMS, CATEGORIES } from "@/data/menu";
 import { Category } from "@/types";
-import { MapPin, Star } from "lucide-react";
+import { MapPin, Star, Truck } from "lucide-react";
 
 function getItems(cat: Category) {
   return MENU_ITEMS.filter((i) => i.category === cat);
@@ -94,6 +94,13 @@ export default function Home() {
 
           {/* CTA */}
           <HeroCTA />
+
+          {/* Free Delivery Promo Pill */}
+          <div className="mt-8 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full
+            bg-white/70 border border-[rgba(200,150,30,0.35)] shadow-sm backdrop-blur-sm">
+            <Truck size={13} className="text-[#C8961E]" />
+            <span className="text-xs text-[#9A7215] font-semibold">Free delivery on orders above ₹299</span>
+          </div>
 
           {/* Address chip */}
           <div className="mt-8 flex items-center justify-center gap-1.5 text-xs text-[#8A7A60]">
