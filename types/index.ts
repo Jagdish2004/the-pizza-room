@@ -3,6 +3,8 @@ export type Category =
     | "pizza-tandoori"
     | "pizza-masala"
     | "pizza-premium"
+    | "pizza-exotica"
+    | "pizza-volcano"
     | "pizza-classic-range"
     | "pizza-mania"
     | "panini"

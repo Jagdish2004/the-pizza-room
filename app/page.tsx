@@ -16,6 +16,8 @@ const SECTION_META: Record<Category, { subtitle?: string }> = {
   "pizza-tandoori": {},
   "pizza-masala": {},
   "pizza-premium": { subtitle: "Made with premium topping sauce" },
+  "pizza-exotica": { subtitle: "Available in L & XL only" },
+  "pizza-volcano": { subtitle: "Available in L & XL only" },
   "pizza-classic-range": {},
   "pizza-mania": { subtitle: "Square pizzas — XL size only" },
   "panini": {},
