@@ -34,6 +34,7 @@ const ITEM_IMAGES: Record<string, string> = {
     "pp-4-cheese": "/images/four_cheese_pizza.jpeg",
     "pp-az-18inch": "/images/blank.jpeg",
     "pp-room-special-18": "/images/blank.jpeg",
+    "pp-your-choice-18": "/images/blank.jpeg",
 
     // ── Classic Pizza Range ─────────────────────────────────────────────────
     "cr-classic": "/images/classic_pizza.jpeg",
