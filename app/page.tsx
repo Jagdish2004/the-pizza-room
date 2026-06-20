@@ -77,7 +77,7 @@ export default function Home() {
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full
             bg-white/70 border border-[rgba(200,150,30,0.35)] shadow-sm mb-6 backdrop-blur-sm">
             <Star size={13} className="text-[#C8961E] fill-[#C8961E]" />
-            <span className="text-xs text-[#9A7215] font-semibold">4.2 · 1,358 reviews on Google</span>
+            <span className="text-xs text-[#9A7215] font-semibold">4.3 · 1,433 reviews on Google</span>
           </div>
 
           <h1
